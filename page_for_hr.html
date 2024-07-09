@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacancies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .column {
+            margin: 20px;
+        }
+        .card {
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+            cursor: pointer;
+        }
+        .card img {
+            width: 50px;
+            height: 50px;
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            color: purple;
+        }
+        .heading {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-container input, .form-container button {
+            margin: 5px;
+            padding: 5px; 
+            font-size: 16px;
+        }
+        .details {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <b><div class="title">Vacancies</div></b>
+    <div class="container" id="vacancy-container">
+        <!-- Existing and dynamically added vacancy cards will go here -->
+    </div>
+
+    <!-- Form to add new vacancy -->
+    <div class="form-container">
+        <input type="text" id="vacancyName" placeholder="Vacancy Name">
+        <input type="number" id="totalScore" placeholder="Total Score">
+        <input type="text" id="position" placeholder="Position">
+        <button onclick="addVacancy()">Add Vacancy</button>
+    </div>
+
+    <script>
+        function addVacancy() {
+            // Get input values
+            const name = document.getElementById('vacancyName').value;
+            const score = document.getElementById('totalScore').value;
+            const position = document.getElementById('position').value;
+
+            // Create card element
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => toggleDetails(card);
+            card.innerHTML = `
+                <img src="placeholder.png" alt="Avatar">
+                <p class="name">${name}</p>
+                <div class="details">
+                    <p>Total score: ${score}</p>
+                    <p>Position: ${position}</p>
+                </div>
+            `;
+
+            // Append card to vacancy-container
+            const container = document.getElementById('vacancy-container');
+            container.appendChild(card);
+
+            // Clear input fields
+            document.getElementById('vacancyName').value = '';
+            document.getElementById('totalScore').value = '';
+            document.getElementById('position').value = '';
+        }
+
+        function toggleDetails(card) {
+            const details = card.querySelector('.details');
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+</html>
